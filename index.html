@@ -79,6 +79,31 @@
             <div id="issues_grid" class="issues_grid"></div>
         </main>
     </div>
+     <div id="modal" class="modal_overlay hidden">
+        <div class="modal_content">
+            <div class="modal_header">
+                <h2 id="modal_title" class="modal_title">Issue Title</h2>
+                <div class="modal_meta">
+                    <span id="modal_status" class="status_badge">Open</span>
+                    <span id="modal_author_date">Opened by User • Date</span>
+                </div>
+                <div id="modal_labels" class="labels"></div>
+            </div>
+            <div id="modal_desc" class="modal_desc">Description goes here</div>
+            <div class="modal_grid">
+                <div class="modal_grid_item">
+                    <strong>Assignee:</strong>
+                    <span id="modal_assignee">User</span>
+                </div>
+                <div class="modal_grid_item">
+                    <strong>Priority:</strong>
+                    <span id="modal_priority">HIGH</span>
+                </div>
+            </div>
+            <button id="close_modal" class="btn_close">Close</button>
+        </div>
+    </div>
+
 
     <script src="./script.js"></script>
 </body>
