@@ -37,6 +37,49 @@
             </div>
         </div>
     </div>
+    <div id="app_view" class="hidden">
+        <header>
+            <div class="header_left">
+                <img src="./assets/github-logo.png" height="40" width="40">
+              
+                GitHub Issues Tracker
+            </div>
+            <div class="header_right">
+                <input type="text" id="search_input" class="search_box" placeholder="Search issues...">
+                <button class="btn_new" id="btn_search">+ Search</button>
+            </div>
+        </header>
+
+        <main class="main_content">
+            <div class="tabs">
+                <button class="tab_btn active" data-tab="all">All</button>
+                <button class="tab_btn" data-tab="open">Open</button>
+                <button class="tab_btn" data-tab="closed">Closed</button>
+            </div>
+
+            <div class="summary_header">
+                <div class="summary_left">
+                    <h3>
+                        <img src="./assets/Aperture.png"width="24" height="24">
+                        
+                        <span id="issue_count">0</span> Issues
+                    </h3>
+                    <p>Track and manage your project issues</p>
+                </div>
+                <div class="summary_right">
+                    <span><span class="dot open"></span> Open</span>
+                    <span><span class="dot closed"></span> Closed</span>
+                </div>
+            </div>
+
+            <div id="loader" class="hidden">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="issues_grid" class="issues_grid"></div>
+        </main>
+    </div>
+
     <script src="./script.js"></script>
 </body>
 </html>

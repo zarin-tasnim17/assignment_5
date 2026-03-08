@@ -139,3 +139,117 @@ button {
   font-size: 14px;
   margin-bottom: 15px;
 }
+header {
+  background: var(--card-bg);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.header_left svg {
+  width: 30px;
+}
+
+.header_right {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.search_box {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 250px;
+}
+.btn_new {
+  background: var(--primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.main_content {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+}
+.tab_btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.tab_btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+
+.summary_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  padding: 15px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.summary_left h3 {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.summary_left p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+.summary_right {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.dot.open {
+  background: var(--open-color);
+}
+.dot.closed {
+  background: var(--closed-color);
+}
+
+
+.issues_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
