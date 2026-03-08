@@ -85,3 +85,84 @@ async function fetchSingleIssue(id) {
   }
 }
 
+function renderIssues() {
+  issuesGrid.innerHTML = "";
+
+ 
+  const filteredIssues = allIssuesData.filter((issue) => {
+    if (currentTab === "all") return true;
+    return issue.status?.toLowerCase() === currentTab;
+  });
+
+  issueCountEl.innerText = filteredIssues.length;
+
+  if (filteredIssues.length === 0) {
+    issuesGrid.innerHTML = `<p>No issues found.</p>`;
+    return;
+  }
+
+  filteredIssues.forEach((issue) => {
+    
+    const isOp = issue.status?.toLowerCase() === "open";
+    const borderClass = isOp ? "card_top_open" : "card_top_closed";
+
+    
+    const id = issue.id || issue._id || "#";
+    const title = issue.title || "No Title";
+    const desc = issue.description || "No description provided...";
+    const author = issue.author?.name || issue.author || "Unknown";
+    const priority = issue.priority || "MEDIUM";
+    const date = issue.createdAt
+      ? new Date(issue.createdAt).toLocaleDateString()
+      : "Unknown Date";
+
+   
+    let labelsHtml = "";
+    if (Array.isArray(issue.labels)) {
+      labelsHtml = issue.labels
+        .map((lbl) => {
+          const lblText = typeof lbl === "string" ? lbl : lbl.name || "";
+          const classModifier =
+            lblText.toLowerCase() === "bug" ? "bug" : "help";
+          return `<span class="label ${classModifier}">${lblText}</span>`;
+        })
+        .join("");
+    }
+
+   
+    const statusIcon = isOp
+      ? "assets/Open-Status.png"
+      : "assets/Closed-Status.png";
+    const card = document.createElement("div");
+    card.className = `issue_card ${borderClass}`;
+    card.innerHTML = `
+                    <div class="card_header">
+                        <span>
+                    <img src="${statusIcon}" alt="status" class="status_icon" />
+                           
+                        </span>
+                        <span class="priority_badge">${priority.toUpperCase()}</span>
+                    </div>
+                    <h3 class="card_title">${title}</h3>
+                    <p class="card_desc">${desc.substring(0, 75)}...</p>
+                    <div class="labels">${labelsHtml}</div>
+                    <div class="card_footer">
+                        #${id} by ${author}<br>
+                        ${date}
+                    </div>
+                `;
+
+   
+    card.addEventListener("click", async () => {
+     
+      let fullIssueData = await fetchSingleIssue(id);
+      if (!fullIssueData || Object.keys(fullIssueData).length === 0) {
+        fullIssueData = issue; 
+      }
+      openModal(fullIssueData);
+    });
+
+    issuesGrid.appendChild(card);
+  });
+}
+
