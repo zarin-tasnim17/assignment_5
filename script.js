@@ -1,6 +1,6 @@
 const loginView = document.getElementById("login_view");
 const appView = document.getElementById("app_view");
-const loginForm = document.getElementById("login-form");
+const loginForm = document.getElementById("login_form");
 const loginError = document.getElementById("login_error");
 
 const loader = document.getElementById("loader");
@@ -164,5 +164,86 @@ function renderIssues() {
 
     issuesGrid.appendChild(card);
   });
+}
+tabBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+   
+    tabBtns.forEach((b) => b.classList.remove("active"));
+    e.target.classList.add("active");
+
+  
+    currentTab = e.target.getAttribute("data-tab");
+    renderIssues();
+  });
+});
+
+
+btnSearch.addEventListener("click", () => {
+  searchIssues(searchInput.value);
+});
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    searchIssues(searchInput.value);
+  }
+});
+
+
+function openModal(issue) {
+  const isOp = issue.status?.toLowerCase() === "open";
+
+  document.getElementById("modal_title").innerText =
+    issue.title || "Issue Details";
+
+  const statusEl = document.getElementById("modal_status");
+  statusEl.innerText = isOp ? "Opened" : "Closed";
+  statusEl.className = `status_badge ${isOp ? "open" : "closed"}`;
+
+  const author = issue.author?.name || issue.author || "Unknown";
+  const date = issue.createdAt
+    ? new Date(issue.createdAt).toLocaleDateString()
+    : "Unknown Date";
+  document.getElementById("modal_author_date").innerText =
+    `Opened by ${author} • ${date}`;
+
+  
+  const labelsContainer = document.getElementById("modal_labels");
+  labelsContainer.innerHTML = "";
+  if (Array.isArray(issue.labels)) {
+    issue.labels.forEach((lbl) => {
+      const lblText = typeof lbl === "string" ? lbl : lbl.name || "";
+      const classModifier = lblText.toLowerCase() === "bug" ? "bug" : "help";
+      labelsContainer.innerHTML += `<span class="label ${classModifier}">${lblText}</span>`;
+    });
+  }
+
+  document.getElementById("modal_desc").innerText =
+    issue.description || "No description provided.";
+  document.getElementById("modal_assignee").innerText =
+    issue.assignee?.name || issue.assignee || author;
+  document.getElementById("modal_priority").innerText =
+    issue.priority || "MEDIUM";
+
+  modal.classList.remove("hidden");
+}
+
+closeModalBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
+
+
+function showLoader(show) {
+  if (show) {
+    loader.classList.remove("hidden");
+    issuesGrid.innerHTML = "";
+  } else {
+    loader.classList.add("hidden");
+  }
 }
 
